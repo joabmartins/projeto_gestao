@@ -1,3 +1,5 @@
+# importar o mysql-connector-python pois o mysql-connector dá erro
+# pip install mysql-connector-python
 import mysql.connector
 
 DB_CONFIG = {
