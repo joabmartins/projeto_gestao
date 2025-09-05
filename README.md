@@ -11,7 +11,7 @@ docker-compose up -d
 Para que as bibliotecas instaladas não afetem o ambiente de outras pessoas ou outro projetos, é recomendado usar um ambiente virtual. Com isso, se você importar o pandas 1.0 ele só vai estar no seu ambiente virtual, após sair dele é possível entrar em outro e importar o pandas 2.0 e um não interfere no outro.
 ```
 # para criar o ambiente virtual digite em um terminal:
-python -m venv <um nome qualquer para o ambiente virtual>
+python -m venv avprojeto
 
 # para acessar o ambiente virtual digite em um terminal:
 .\<nome dado ao ambiente>\Scripts\activate

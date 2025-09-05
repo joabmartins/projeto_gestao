@@ -18,5 +18,4 @@ def conectar():
     except mysql.connector.Error as error:
         print(f"Erro ao conectar ao banco de dados: {error}")
         
-    
 conectar()
