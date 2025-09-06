@@ -14,8 +14,8 @@ def conectar():
     try:
         conn = mysql.connector.connect(**DB_CONFIG)
         print("Conexao estabelecida com sucesso!")
-        conn.close()
+        return conn
     except mysql.connector.Error as error:
         print(f"Erro ao conectar ao banco de dados: {error}")
-        
+        return None
 conectar()
