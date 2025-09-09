@@ -6,7 +6,7 @@ def get_request(url):
     response = requests.get(url)
     if response.status_code == 200:
         # print(json.dumps(response.json(), indent=2))
-        return response.json
+        return response.json()
     else:
         print("Erro ao buscar dados da url")
         return None
@@ -14,6 +14,7 @@ def get_request(url):
 def get_deputados():
     deputados_url = "https://dadosabertos.camara.leg.br/api/v2/deputados"
     data = get_request(deputados_url)
+    print(data)
     return data.get("dados")
 
 def get_despesas(id_deputado):

@@ -11,9 +11,13 @@ def executar_query(sql):
         cur = conn.cursor()
         cur.execute(sql)
         conn.commit()
+        print("Comando SQL executado com sucesso!")
     except mysql.connector.Error as error:
         print(f"Erro ao executar comando: {error}")
         conn.rollback()
+    finally:
+        cur.close()
+        conn.close()
 
 def criar_tabela_deputados():
     sql = """
