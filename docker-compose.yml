@@ -31,6 +31,19 @@ services:
       - "80:80"
     depends_on:
       - postgres_db
-    
+
+  mysql_db:
+    image: mysql:8.0
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: admin  # Sua senha para o usuário root
+      MYSQL_DATABASE: projeto_db   # Nome do banco de dados que será criado automaticamente
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+ 
 volumes:
   postgres_data:
+  mysql_data:
