@@ -4,14 +4,15 @@ import json
 
 def cadastrar_deputados():
     data = api.get_deputados()
-    data = data[:10]
+    # data = data[:10]
     count = 1
-    size = len(data)
+    size = len(data) # 3
 
     for deputado in data:
         print(f"salvando {count} de {size}: {deputado['nome']}")
         total_gastos = get_total_despesas(deputado['id'])
         print(f"O deputado {deputado['nome']} teve gasto total de {total_gastos}")
+        query.inserir_deputado(deputado, total_gastos)
         count+=1
     
 def get_total_despesas(id):
