@@ -19,7 +19,7 @@ def executar_query(sql, dados):
         cur.close()
         conn.close()
         
-def consultar_query(sql, dados):
+def consultar_query(sql):
     conn = db_conn.conectar()
     if conn is None:
         print("conexão vazia")
@@ -27,7 +27,7 @@ def consultar_query(sql, dados):
     resultados = None
     try:
         cur = conn.cursor()
-        cur.execute(sql, dados)
+        cur.execute(sql)
         resultados = cur.fetchall()
         print("Comando SQL executado com sucesso!")
     except mysql.connector.Error as error:
@@ -76,4 +76,30 @@ def get_all_gastos_by_partido():
     GROUP BY partido;
 """
 
-consultar_query(sql)
+    return consultar_query(sql)
+def get_all_gastos_by_uf():
+    sql = """
+        SELECT uf, SUM(total_gastos) as gastos_totais
+        FROM deputado
+        GROUP BY uf;
+    """
+    return consultar_query(sql)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
