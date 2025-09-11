@@ -1,2 +1,4 @@
+# git rm -r --cached __pycache__
 **/logs
-__pycache__
+__pycache__/
+avprojeto/

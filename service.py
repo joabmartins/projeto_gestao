@@ -6,6 +6,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+PRIMEIRA_EXECUCAO = False
+
 def cadastrar_deputados():
     data = api.get_deputados()
     # data = data[:10]
@@ -27,10 +29,6 @@ def get_total_despesas(id):
         total_gastos += despesa.get("valorLiquido", 0)
     return total_gastos
 
-# comandos a serem executados apenas uma vez
-# query.criar_tabela_deputados()
-# cadastrar_deputados()
-
 def apresentar_dados():
     gastos_partido = query.get_all_gastos_by_partido()
     gastos_uf = query.get_all_gastos_by_uf()
@@ -48,4 +46,8 @@ def apresentar_dados():
     plt.tight_layout()
     plt.show()
 
-apresentar_dados()
+def main():
+    if PRIMEIRA_EXECUCAO:
+        query.criar_tabela_deputados()
+        cadastrar_deputados()
+    apresentar_dados()

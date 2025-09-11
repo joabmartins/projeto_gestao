@@ -1,49 +1,31 @@
-# docker stop <ID_DO_PGADMIN> <ID_DO_POSTGRES>
-# docker rm <ID_DO_PGADMIN> <ID_DO_POSTGRES>
+# execute o comando abaixo no terminal para executar este arquivo: 
 # docker-compose up -d
 
+# versão do docker-compose (opcional)
 version: '3.8'
 
-services:
-  # Serviço do PostgreSQL
-  postgres_db:
-    image: postgres:latest
-    container_name: postgres_db
-    restart: always
-    environment:
-      - POSTGRES_DB=projeto_db
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=admin
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
-
-  # Serviço do pgAdmin
-  pgadmin:
-    image: dpage/pgadmin4
-    container_name: pgadmin4
-    restart: always
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
-      - PGADMIN_DEFAULT_PASSWORD=admin
-    ports:
-      - "80:80"
-    depends_on:
-      - postgres_db
-
+# listas com todos os serviços
+services: 
+  # declaração do nome do serviço do MySql
   mysql_db:
+    # qual imagem baixar do docker hub
     image: mysql:8.0
+    # nome do container, não pode ser repetido
     container_name: mysql_db
+    # reiniciar o contêiner sempre que ocorrer algum erro
     restart: always
+    # variáveis de ambiente necessárias para o contêiner
     environment:
-      MYSQL_ROOT_PASSWORD: admin  # Sua senha para o usuário root
-      MYSQL_DATABASE: projeto_db   # Nome do banco de dados que será criado automaticamente
+      # Sua senha para o usuário root
+      MYSQL_ROOT_PASSWORD: admin 
+      # Nome do banco de dados que será criado automaticamente
+      MYSQL_DATABASE: projeto_db   
     ports:
+      # porta a ser usada, o mysql do computador já usa a 3306
       - "3307:3306"
     volumes:
+      # pasta de armazenamento dos arquivos criados pelo contêiner
       - mysql_data:/var/lib/mysql
  
-volumes:
-  postgres_data:
+volumes: # local onde será salvo os dados do banco de dados
   mysql_data:
