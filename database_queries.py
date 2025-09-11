@@ -1,5 +1,6 @@
 import database_connection as db_conn
 import mysql.connector
+import json
 
 def executar_query(sql, dados):
     conn = db_conn.conectar()
@@ -19,7 +20,7 @@ def executar_query(sql, dados):
         cur.close()
         conn.close()
 
-def consultar_query(sql, dados):
+def consultar_query(sql):
     conn = db_conn.conectar()
     if conn is None:
         print("conexão vazia")
@@ -27,7 +28,7 @@ def consultar_query(sql, dados):
     resultados = None
     try:
         cur = conn.cursor()
-        cur.execute(sql, dados)
+        cur.execute(sql)
         resultados = cur.fetchall()
         print("Comando SQL executado com sucesso!")
     except mysql.connector.Error as error:
@@ -67,10 +68,18 @@ def inserir_deputado(deputado, total_gastos):
     dados = (matricula, nome, partido, uf, total_gastos)
     executar_query(sql, dados)
     
-def get_all_gastos_by_partudo():
+def get_all_gastos_by_partido():
     sql = """
         SELECT partido, SUM(total_gastos) AS gastos_totais
         FROM deputado
         GROUP BY partido;
     """
-    consultar_query(sql)
+    return consultar_query(sql)
+
+def get_all_gastos_by_uf():
+    sql = """
+        SELECT uf, SUM(total_gastos) as gastos_totais
+        FROM deputado
+        GROUP BY uf;
+    """
+    return consultar_query(sql)
