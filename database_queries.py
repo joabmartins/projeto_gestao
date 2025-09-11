@@ -19,7 +19,7 @@ def executar_query(sql, dados):
         cur.close()
         conn.close()
 
-def consultar_query(sql, dados):
+def consultar_query(sql):
     conn = db_conn.conectar()
     if conn is None:
         print("Conexão vazia")
@@ -28,7 +28,7 @@ def consultar_query(sql, dados):
     
     try: 
         cur = conn.cursor()
-        cur.execute(sql, dados)
+        cur.execute(sql)
         resultados = cur.fetchall()
         print("Comando SQL executado com sucesso!")
     except mysql.connector.Error as error:
@@ -49,7 +49,7 @@ def criar_tabela_deputados():
         uf VARCHAR(4) NOT NULL,
         total_gastos NUMERIC(10, 2)
     );"""
-    executar_query(sql)
+    executar_query(sql, dados)
 
 
 def inserir_deputado(deputado, total_gastos):
@@ -68,7 +68,7 @@ def inserir_deputado(deputado, total_gastos):
         ) VALUES (%s, %s, %s, %s, %s)
     """
     dados = (matricula, nome, partido, uf, total_gastos)
-    executar_query(sql, dados)
+    executar_query(sql)
 
 def get_all_gastos_by_partido():
     sql = """
@@ -76,5 +76,16 @@ def get_all_gastos_by_partido():
         FROM deputado
         GROUP BY partido;
     """
-    consultar_query(sql)
+    return consultar_query(sql)
+
+def get_all_gastos_by_uf():
+    sql = """
+    SELECT UF, SUM(total_gastos) as gastos_totais
+    FROM deputado
+    GROUP BY uf;  
+"""
+    return consultar_query(sql)
+
+
+
 
