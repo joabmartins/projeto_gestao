@@ -1,6 +1,10 @@
 import database_queries as query 
 import api_dados_abertos as api
 import json
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
 
 def cadastrar_deputados():
     data = api.get_deputados()
@@ -22,6 +26,26 @@ def get_total_despesas(id):
         print(f"salvando despesa {despesa.get("valorLiquido", 0)} de {id}")
         total_gastos += despesa.get("valorLiquido", 0)
     return total_gastos
-cadastrar_deputados()
+
+#cadastrar_deputados()
 #apenas uma vez
 #query.criar_tabela_deputados():
+
+def apresentar_dados():
+    gasto_partido = query.gett_all_gastos_by_partido()
+    gastos_uf = query.get_all_gastos_by_uf()
+    # conerter json em dataframe do pandas
+    df= pd.DataFrame(gasto_partido, columns= ['partido', 'gastos_totais'])
+    df_uf = pd.DataFrame(gastos_uf, columns= ['uf', 'gastos_totais'])
+    #criar o grafico em barras
+    #plt.figure(figsize=(10, 6))
+    fig, (partido_gf, uf_gf) = plt.subplots(1, 2, figsize = (20, 4))
+    partido_gf= sns.barplot(x= 'partido', y= 'gastos_totais', data= df, ax=partido_gf)
+    uf_gf=sns.barplot(x= 'uf',  y='gastos_totais', data=df_uf, ax=uf_gf)
+    partido_gf.tick_params(axis= 'x', rotation =45)
+    uf_gf.tick_params(axis='x', rotation=45)
+    #exibir o frafico
+    plt.tight_layout()
+    plt.show()
+
+apresentar_dados()
