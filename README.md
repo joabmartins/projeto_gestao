@@ -16,3 +16,5 @@ python -m venv avprojeto
 # para acessar o ambiente virtual digite em um terminal:
 .\<nome dado ao ambiente>\Scripts\activate
 ```
+
+teste
